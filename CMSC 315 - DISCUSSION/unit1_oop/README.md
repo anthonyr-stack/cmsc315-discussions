@@ -1,35 +1,47 @@
-# Unit 1 Discussion: Python OOP, Namespaces, and Copying
+Unit 1 Discussion: Python OOP, Namespaces, and Copying
 
-## Overview
+Overview
 
-This assignment explores object-oriented programming (OOP) concepts in Python, including inheritance, namespaces, and object copying.
+This assignment explored object-oriented programming concepts in Python, including inheritance, namespaces, shallow copying, and deep copying. I created a program based on cybersecurity and network management to demonstrate how classes and objects can organize information about network devices.
 
-## Learning Objectives
+Implementation
 
-- Create parent and child classes
-- Use inheritance to extend functionality
-- Understand class and instance namespaces
-- Demonstrate shallow and deep copying
-- Apply object-oriented design principles
+Parent Class
 
-## Requirements
+I created a parent class called ParentClass that represented a network device. The class included a class variable called device_type and two instance variables, name and ip_address. I also implemented a display_info() method to display device information.
 
-Complete all TODO sections in the source code:
+Child Class
 
-1. Create a parent class.
-2. Create a child class using inheritance.
-3. Demonstrate class and instance namespaces.
-4. Demonstrate shallow and deep copying.
-5. Create and test objects in `main()`.
-6. Add a student-created extension.
+I created a child class called ChildClass that inherited from ParentClass. I used super() to initialize inherited attributes and added firewall_status and ports as new instance variables.
 
-## Discussion Board Reflection
+I also created a check_firewall() method and overrode display_info() to display additional information.
 
-After completing the programming assignment, add this reflection to your initial discussion post in LEO.
+Namespaces
 
-Your reflection should be approximately 150–200 words and address the following questions:
+I demonstrated the difference between class and instance namespaces by creating multiple network device objects. I accessed class variables through the class and an object, added a unique attribute to one object, and used __dict__ to examine their namespaces.
 
-1. What concepts or skills did you learn while completing this assignment?
-2. What challenges did you encounter, and how did you overcome them?
-3. Compare OOP to procedural programming.
-4. Discuss the benefits of maintainability and reusability and apply this managing overhead, practical application development, and future use.
+Shallow and Deep Copying
+
+I used Python's copy() and deepcopy() functions to demonstrate object copying. The shallow copy shared the original object's nested mutable list, while the deep copy maintained an independent list.
+
+After modifying the original list, I compared the results to observe how each copy behaved.
+
+Student-Created Extension
+
+I added a scan_ports() method that displayed the ports stored in a network device object's list. This extension demonstrated how additional functionality could be incorporated into an existing class.
+
+The method simulated checking configured ports rather than performing a real network scan.
+
+Memory Behavior
+
+Each object stored its own instance attributes. Class variables were shared through the class rather than duplicated for every object.
+
+The ports list grew as additional values were appended. A shallow copy created a new outer object but retained references to nested mutable data, while a deep copy created independent nested data structures.
+
+For a list containing n ports, copying the list's contents required O(n) additional memory. Shallow copying the object itself required O(1) additional memory because it reused the existing list.
+
+Conclusion
+
+This assignment demonstrated how object-oriented programming could help organize network management applications. Inheritance reduced repeated code, namespaces helped separate shared and individual attributes, and object copying showed how mutable data could affect program behavior.
+
+These concepts could be useful when developing larger cybers
