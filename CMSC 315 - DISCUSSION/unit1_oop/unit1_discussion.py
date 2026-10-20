@@ -1,3 +1,4 @@
+
 """
 ===========================================================
 Unit 1 DISCUSSION: Python OOP, Namespaces, and Copying
@@ -8,7 +9,6 @@ In this assignment, you will build and explore object-oriented programming (OOP)
 You are provided with starter code containing TODO sections. Your task is to complete, modify, and
 analyze the code to demonstrate understanding of inheritance, namespaces, and object copying.
 """
-
 
 from copy import copy, deepcopy
 
@@ -25,7 +25,14 @@ from copy import copy, deepcopy
 # Replace the pass statement with your implementation.
 
 class ParentClass:
-    pass
+    device_type = "Network Device"
+
+    def __init__(self, name, ip_address):
+        self.name = name
+        self.ip_address = ip_address
+
+    def display_info(self):
+        print(f"Device: {self.name}, IP: {self.ip_address}")
 
 
 # TODO 2:
@@ -41,7 +48,22 @@ class ParentClass:
 # Replace the pass statement with your implementation.
 
 class ChildClass(ParentClass):
-    pass
+    security_level = "High"
+
+    def __init__(self, name, ip_address, firewall_status, ports):
+        super().__init__(name, ip_address)
+        self.firewall_status = firewall_status
+        self.ports = ports
+
+    def check_firewall(self):
+        print(f"Firewall Status: {self.firewall_status}")
+
+    def display_info(self):
+        print(
+            f"Device: {self.name}, IP: {self.ip_address}, "
+            f"Firewall: {self.firewall_status}, "
+            f"Ports: {self.ports}"
+        )
 
 
 # TODO 3:
@@ -57,7 +79,19 @@ class ChildClass(ParentClass):
 
 def demonstrate_namespaces():
     print("\n=== Namespace Demonstration ===")
-    print("TODO: Implement namespace demonstration")
+
+    device1 = ChildClass("Router", "192.168.1.1", "Enabled", [80, 443])
+    device2 = ChildClass("Switch", "192.168.1.2", "Disabled", [22, 80])
+
+    print("Class variable:", ChildClass.security_level)
+    print("Object variable:", device1.security_level)
+
+    device1.location = "Server Room"
+
+    print("Device 1 namespace:", device1.__dict__)
+    print("Device 2 namespace:", device2.__dict__)
+
+    print("Class namespace:", list(ChildClass.__dict__.keys()))
 
 
 # TODO 4:
@@ -73,7 +107,25 @@ def demonstrate_namespaces():
 
 def demonstrate_copying():
     print("\n=== Copy Demonstration ===")
-    print("TODO: Implement shallow copy and deep copy demonstration")
+
+    original = ChildClass(
+        "Firewall",
+        "192.168.1.10",
+        "Enabled",
+        [80, 443]
+    )
+
+    shallow = copy(original)
+    deep = deepcopy(original)
+
+    # A shallow copy shares the nested list with the original.
+    # A deep copy creates an independent copy of the nested list.
+
+    original.ports.append(8080)
+
+    print("Original ports:", original.ports)
+    print("Shallow copy ports:", shallow.ports)
+    print("Deep copy ports:", deep.ports)
 
 
 # TODO 5:
@@ -89,9 +141,24 @@ def demonstrate_copying():
 def main():
     print("=== Unit 1 OOP Assignment ===")
 
-    print("\nTODO: Create and test your parent object")
+    print("\n=== Parent Object ===")
+    parent = ParentClass("Main Server", "192.168.1.100")
+    parent.display_info()
 
-    print("\nTODO: Create and test your child object")
+    print("\n=== Child Object ===")
+    child = ChildClass(
+        "Security Router",
+        "192.168.1.1",
+        "Enabled",
+        [22, 80, 443]
+    )
+
+    child.display_info()
+    child.check_firewall()
+
+    # Demonstrate the inherited parent method.
+    super_method = super(ChildClass, child)
+    super_method.display_info()
 
     demonstrate_namespaces()
     demonstrate_copying()
