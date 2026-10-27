@@ -34,3 +34,24 @@ Your reflection should be approximately 150–200 words and address the followin
 1. What concepts or skills did you learn while completing this assignment?
 2. What challenges did you encounter, and how did you overcome them?
 3. Explain the differences between stacks and queues as this relates to real-world applications.
+
+## Implementation Summary
+
+I implemented a stack using a Python list and a queue
+using collections.deque.
+
+The stack demonstrated Last-In, First-Out (LIFO)
+behavior by removing the most recently recorded
+IT support action first.
+
+The queue demonstrated First-In, First-Out (FIFO)
+behavior by processing support tickets in the order
+they were received.
+
+I also tested empty stacks and queues to prevent
+invalid removal operations. Additionally, I tested
+single-item structures to confirm that they became
+empty after their only item was removed.
+
+The program demonstrated how stacks and queues
+could be used in an IT help desk environment.
