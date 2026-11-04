@@ -1,122 +1,163 @@
+
 """
 ==================================================
 Unit 3 DISCUSSION: List Operations (Insert, Delete, Search)
 ==================================================
 
-INSTRUCTIONS:
-This assignment focuses on understanding how lists behave when elements
-are inserted, removed, and searched. You will analyze how Python lists
-shift elements in memory and how different operations impact performance.
+This program demonstrates insertion, deletion, and searching
+in Python lists, including edge cases and performance.
 """
 
 
 def insert_at(lst, index, value):
     """
-    TODO (Student):
-    Insert a value into the list at the specified index.
-
-    Requirements:
-    - Use a list operation to insert the value.
-    - Add comments explaining what happens to existing elements
-      after an insertion occurs.
-    - Use comments to explain how insertion performance may vary depending on
-      where the insertion occurs.
+    Insert a value at the specified index.
     """
-    pass
+    # Inserting shifts existing elements to the right.
+    # Inserting at the beginning or middle takes O(n) time.
+    # Inserting at the end is usually O(1) amortized time.
+    lst.insert(index, value)
 
 
 def delete_at(lst, index):
     """
-    TODO (Student):
-    Remove and return the value at the specified index.
-
-    Requirements:
-    - Validate that the index exists.
-    - Return the removed value.
-    - Return None if the index is invalid.
-    - Add comments explaining why index validation and safe deletion are important.
+    Remove and return a value at the specified index.
+    Return None if the index is invalid.
     """
-    pass
+    # Check that the index is within the list boundaries.
+    # This prevents an IndexError from occurring.
+    if index < 0 or index >= len(lst):
+        return None
+
+    # Removing an element shifts later elements to the left.
+    # Deleting from the beginning or middle takes O(n) time.
+    # Deleting from the end takes O(1) time.
+    return lst.pop(index)
 
 
 def search_value(lst, value):
     """
-    TODO (Student):
-    Search for a value within the list.
-
-    Requirements:
-    - Return the index if the value is found.
-    - Return -1 if the value is not found.
-    - Add comments explaining why this is a linear search and why it scans sequentially.
+    Search for a value and return its index.
+    Return -1 if the value is not found.
     """
-    pass
+    # Linear search checks each element sequentially.
+    # It takes O(n) time in the worst case.
+    for index in range(len(lst)):
+        if lst[index] == value:
+            return index
+
+    return -1
 
 
 def main():
     print("=== UNIT 3: LIST OPERATIONS ===")
 
     # ===============================
-    # TODO (Student): INSERTION TESTS
+    # INSERTION TESTS
     # ===============================
-    #
-    # Requirements:
-    # 1. Create a list containing several values.
-    # 2. Display the original list.
-    # 3. Test insertion at:
-    #    - the beginning
-    #    - the middle
-    #    - the end
-    # 4. Display the list after each insertion.
-    # 5. Use comments to explain each step in the implementation.
 
     print("\n=== INSERTION TESTS ===")
-    print("TODO: Create a list and demonstrate insertions.")
+
+    # Create a list containing several values.
+    numbers = [10, 20, 30, 40, 50]
+    print("Original list:", numbers)
+
+    # Insert at the beginning.
+    # Existing elements shift one position to the right.
+    insert_at(numbers, 0, 5)
+    print("After inserting 5 at beginning:", numbers)
+
+    # Insert into the middle of the list.
+    insert_at(numbers, 3, 25)
+    print("After inserting 25 in middle:", numbers)
+
+    # Insert at the end of the list.
+    insert_at(numbers, len(numbers), 60)
+    print("After inserting 60 at end:", numbers)
 
     # ===============================
-    # TODO (Student): DELETION TESTS
+    # DELETION TESTS
     # ===============================
-    #
-    # Requirements:
-    # 1. Delete an item from:
-    #    - the beginning
-    #    - the middle
-    #    - the end
-    # 2. Display the removed value.
-    # 3. Display the updated list after each deletion.
-    # 4. Use comments to clearly explain what is happening in the output.
 
     print("\n=== DELETION TESTS ===")
-    print("TODO: Demonstrate deletions from multiple positions.")
+
+    # Delete the first element.
+    removed = delete_at(numbers, 0)
+    print("Removed from beginning:", removed)
+    print("Updated list:", numbers)
+
+    # Delete an element from the middle.
+    removed = delete_at(numbers, 2)
+    print("Removed from middle:", removed)
+    print("Updated list:", numbers)
+
+    # Delete the last element.
+    removed = delete_at(numbers, len(numbers) - 1)
+    print("Removed from end:", removed)
+    print("Updated list:", numbers)
 
     # ===============================
-    # TODO (Student): SEARCH TESTS
+    # SEARCH TESTS
     # ===============================
-    #
-    # Requirements:
-    # 1. Search for a value that exists.
-    # 2. Search for a value that does not exist.
-    # 3. Display the search results with clear explanations.
-    # 4. Use comments to explain each step.
 
     print("\n=== SEARCH TESTS ===")
-    print("TODO: Demonstrate searching for values.")
+
+    # Search for a value that exists.
+    result = search_value(numbers, 30)
+    print("Searching for 30: Found at index", result)
+
+    # Search for a value that does not exist.
+    result = search_value(numbers, 100)
+
+    if result == -1:
+        print("Searching for 100: Value not found")
+    else:
+        print("Searching for 100: Found at index", result)
 
     # ===============================
-    # TODO (Student): EDGE CASES
+    # EDGE CASES
     # ===============================
-    #
-    # Demonstrate at least two edge cases.
-    #
-    # Example ideas:
-    # - Delete using an invalid index
-    # - Search for a missing value
-    # - Insert into an empty list
-    # - Delete from an empty list
-    # - Use comments to explain each edge case.
 
     print("\n=== EDGE CASES ===")
-    print("TODO: Demonstrate at least two edge cases.")
 
+    # Edge Case 1: Delete using an invalid index.
+    # The function returns None instead of crashing.
+    result = delete_at(numbers, 100)
+    print("Deleting invalid index 100:", result)
+
+    # Edge Case 2: Insert into an empty list.
+    empty_list = []
+    insert_at(empty_list, 0, 99)
+    print("Inserting into empty list:", empty_list)
+
+    # Edge Case 3: Delete from an empty list.
+    another_empty_list = []
+    result = delete_at(another_empty_list, 0)
+    print("Deleting from empty list:", result)
+
+    # ===============================
+    # REAL-WORLD SCENARIO
+    # ===============================
+
+    print("\n=== REAL-WORLD SCENARIO ===")
+
+    # A network administrator maintains a list
+    # of connected devices on a network.
+    devices = ["Router", "Switch", "Firewall"]
+    print("Connected devices:", devices)
+
+    # Add a new device to the network.
+    insert_at(devices, 1, "Access Point")
+    print("After adding Access Point:", devices)
+
+    # Search for a specific network device.
+    result = search_value(devices, "Firewall")
+    print("Firewall found at index:", result)
+
+    # Remove a disconnected device.
+    removed = delete_at(devices, 0)
+    print("Disconnected device:", removed)
+    print("Updated connected devices:", devices)
 
 
 if __name__ == "__main__":
