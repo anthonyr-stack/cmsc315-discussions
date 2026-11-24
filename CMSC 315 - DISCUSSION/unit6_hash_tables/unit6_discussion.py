@@ -1,19 +1,11 @@
+
 """
 ====================================================
 UNIT 6 DISCUSSION: Python Dictionaries as Hash Tables
 ====================================================
-
-INSTRUCTIONS:
-In this activity, you will work with Python dictionaries
-to simulate the behavior of a hash table.
-
-You will modify the provided starter code to demonstrate
-common operations and explain key concepts.
-
-Follow all TODO prompts in the code and ensure your output
-clearly communicates what your program is doing at each step.
-
-----------------------------------------------------
+Author: Anthony Romero
+Scenario: Network Device Management System
+====================================================
 """
 
 
@@ -21,74 +13,116 @@ def main():
     print("=== UNIT 6: DICTIONARIES AS HASH TABLES ===")
 
     # ===============================
-    # TODO (Student): CREATE A HASH TABLE
+    # CREATE A HASH TABLE
     # ===============================
-    #
-    # Requirements:
-    # 1. Create an empty dictionary.
-    # 2. Add at least 5 key-value pairs.
-    # 3. Add comments explaining how a dictionary
-    #    behaves like a hash table.
-    # 4. Display the contents of the dictionary.
-
 
     print("\n=== INSERT OPERATIONS ===")
-    print("TODO: Create a dictionary and add multiple key-value pairs.")
+
+    # Create an empty dictionary.
+    network_devices = {}
+
+    # Python dictionaries behave like hash tables.
+    # A hash function determines where each key-value
+    # pair is stored, allowing efficient access.
+
+    network_devices["Router1"] = "192.168.1.1"
+    network_devices["Switch1"] = "192.168.1.2"
+    network_devices["Firewall1"] = "192.168.1.3"
+    network_devices["AccessPoint1"] = "192.168.1.4"
+    network_devices["Server1"] = "192.168.1.5"
+
+    print("Network devices:", network_devices)
 
     # ===============================
-    # TODO (Student): LOOKUP OPERATIONS
+    # LOOKUP OPERATIONS
     # ===============================
-    #
-    # Requirements:
-    # 1. Retrieve at least two existing keys.
-    # 2. Clearly display the lookup results.
-    # 3. Add meaningful comments to explain how the lookup works.
 
     print("\n=== LOOKUP OPERATIONS ===")
-    print("TODO: Demonstrate successful key lookups.")
+
+    # Dictionaries use the hash of a key to locate
+    # its associated value without searching every entry.
+
+    print("Router1 IP:", network_devices["Router1"])
+    print("Server1 IP:", network_devices["Server1"])
 
     # ===============================
-    # TODO (Student): UPDATE OPERATIONS
+    # UPDATE OPERATIONS
     # ===============================
-    #
-    # Requirements:
-    # 1. Update the value associated with an existing key.
-    # 2. Display the dictionary before and after the update.
-    # 3. Use comments to explain what happens when an existing key is assigned
-    #    a new value.
 
     print("\n=== UPDATE OPERATIONS ===")
-    print("TODO: Demonstrate updating an existing key.")
+
+    print("Before update:", network_devices)
+
+    # Assigning a new value to an existing key replaces
+    # the previous value without creating a duplicate key.
+
+    network_devices["Switch1"] = "192.168.1.10"
+
+    print("After update:", network_devices)
 
     # ===============================
-    # TODO (Student): DELETE OPERATIONS
+    # DELETE OPERATIONS
     # ===============================
-    #
-    # Requirements:
-    # 1. Delete at least one key-value pair.
-    # 2. Display the dictionary before and after deletion.
-    # 3. Use comments to explain what happens when a key is removed.
 
     print("\n=== DELETE OPERATIONS ===")
-    print("TODO: Demonstrate deleting a key-value pair.")
+
+    print("Before deletion:", network_devices)
+
+    # Removing a key also removes its associated value
+    # and decreases the dictionary size by one.
+
+    del network_devices["Firewall1"]
+
+    print("After deletion:", network_devices)
 
     # ===============================
-    # TODO (Student): EDGE CASES
+    # EDGE CASES
     # ===============================
-    #
-    # Demonstrate at least two edge cases.
-    #
-    # Example ideas:
-    # - Lookup a missing key
-    # - Delete a missing key safely
-    # - Update a missing key
-    # - Use an empty dictionary
-    #
-    # Explain what happens in each case.
 
     print("\n=== EDGE CASES ===")
-    print("TODO: Demonstrate and explain edge cases.")
 
+    # Edge Case 1: Lookup a missing key.
+    # Using get() with a default value prevents a KeyError.
+
+    print("\nEdge Case 1: Missing key lookup")
+    print(network_devices.get("Router2", "Device not found"))
+
+    # Edge Case 2: Delete a missing key.
+    # Using pop() with a default value prevents a KeyError.
+
+    print("\nEdge Case 2: Delete missing key")
+    print(network_devices.pop("Switch2", "Device not found"))
+
+    # Edge Case 3: Insert a duplicate key.
+    # The existing value is replaced instead of
+    # creating another entry.
+
+    print("\nEdge Case 3: Duplicate key")
+    print("Before:", network_devices["Router1"])
+
+    network_devices["Router1"] = "192.168.1.20"
+
+    print("After:", network_devices["Router1"])
+
+    # Edge Case 4: Lookup in an empty dictionary.
+    # The dictionary returns the specified default value.
+
+    print("\nEdge Case 4: Empty dictionary")
+
+    empty_dictionary = {}
+
+    print(empty_dictionary.get("Router1", "Dictionary is empty"))
+
+    # ===============================
+    # FINAL RESULTS
+    # ===============================
+
+    print("\n=== FINAL NETWORK DEVICES ===")
+
+    for device, ip_address in network_devices.items():
+        print(device, ":", ip_address)
+
+    print("\nTotal devices:", len(network_devices))
 
 
 if __name__ == "__main__":
